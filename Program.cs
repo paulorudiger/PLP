@@ -22,7 +22,6 @@ bool ehValorValido(string numero)
 int aoQuadrado(int num1)
 {
     return num1 * num1;
-
 }
 
 Console.WriteLine("Digite o 1º número:");
@@ -50,14 +49,12 @@ while (!ehValorValido(num3))
     Console.WriteLine("Por favor, digite um número válido (não é possível digitar um número ou caractere especial)");
     num3 = Console.ReadLine();
 }
+
 int c = parseStringToInt(num3);
-
 int d;
-
 int r = aoQuadrado(a+b);
 int s = aoQuadrado(b + c);
 
 d = (r + s) / 2;
 
 Console.WriteLine("Valor= " + d);
-
