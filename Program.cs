@@ -58,3 +58,4 @@ int s = aoQuadrado(b + c);
 d = (r + s) / 2;
 
 Console.WriteLine("Valor= " + d);
+Console.Read();
