@@ -96,13 +96,28 @@ while (opcaoInt != 0)
                 break;
             case 5:
                 Console.WriteLine("Opção 5 selecionada: Estoque de segurança");
-                // Implemente o código para a opção 5 aqui
+
+                var estoqueSeguranca = listaProdutos.Where(p =>
+                    p.Estoque < (p.QtdVendida * 0.33));
+
+                Console.WriteLine("Produtos no Estoque de Segurança:");
+
+                foreach (var produto in estoqueSeguranca)
+                {
+                    Console.WriteLine("Código: " + produto.Codigo + " - " + "Descrição: "
+                         + produto.Descricao + " - " + "Estoque: " + produto.Estoque + "\n");
+                }
+
                 break;
             case 6:
                 Console.WriteLine("Opção 6 selecionada: Excesso de estoque");
-                var excessoEstoque = listaProdutos.Where(p => p.Estoque >= (p.QtdVendida * 3));
+
+                var excessoEstoque = listaProdutos.Where(p =>
+                    p.Estoque >= (p.QtdVendida * 3));
+
                 Console.WriteLine("Produtos em excesso no estoque:");
-                foreach (var produto in excessoEstoque)                {
+                foreach (var produto in excessoEstoque)
+                {
                     Console.WriteLine("Código: " + produto.Codigo + " - " + "Descrição: "
                          + produto.Descricao + " - " + "Estoque: " + produto.Estoque + "\n");
                 }
@@ -112,11 +127,11 @@ while (opcaoInt != 0)
                 var Media = listaProdutos.GroupBy(p => p.Categoria).Select(g => new
                 {
                     Categoria = g.Key,
-                    PrecoMedio = g.Average(produtos => produtos.Preco)
+                    PrecoMedio = g.Average(p => p.Preco)
                 });
-                foreach (var item in Media)
+                foreach (var produto in Media)
                 {
-                    Console.WriteLine("Categoria: " + item.Categoria + " - " + "Preço medio: " + item.PrecoMedio);
+                    Console.WriteLine("Categoria: " + produto.Categoria + " - " + "Preço medio: " + produto.PrecoMedio);
                 }
 
                 break;
@@ -126,11 +141,9 @@ while (opcaoInt != 0)
         }
 
     }
+
     exibirMenu();
     opcaoStr = Console.ReadLine();
     opcaoInt = parseStringToInt(opcaoStr);
 
 }
-
-
-
