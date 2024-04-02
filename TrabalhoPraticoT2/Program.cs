@@ -124,12 +124,12 @@ while (opcaoInt != 0)
                 break;
             case 7:
                 Console.WriteLine("Opção 7 selecionada: Média de preço por categoria");
-                var Media = listaProdutos.GroupBy(p => p.Categoria).Select(g => new
+                var media = listaProdutos.GroupBy(p => p.Categoria).Select(g => new
                 {
                     Categoria = g.Key,
                     PrecoMedio = g.Average(p => p.Preco)
                 });
-                foreach (var produto in Media)
+                foreach (var produto in media)
                 {
                     Console.WriteLine("Categoria: " + produto.Categoria + " - " + "Preço medio: " + produto.PrecoMedio);
                 }
@@ -147,3 +147,5 @@ while (opcaoInt != 0)
     opcaoInt = parseStringToInt(opcaoStr);
 
 }
+
+

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Globalization;
 
 namespace TrabalhoPraticoT2.Classes
 {
@@ -34,7 +35,7 @@ namespace TrabalhoPraticoT2.Classes
                     Codigo = Convert.ToInt32(linha.Split(';')[(int)Header.Codigo]),
                     Descricao = linha.Split(";")[(int)Header.Descricao],
                     Categoria = linha.Split(";")[(int)Header.Categoria],
-                    Preco = Convert.ToDouble(linha.Split(";")[(int)Header.Preco]),
+                    Preco = Convert.ToDouble(linha.Split(";")[(int)Header.Preco], CultureInfo.InvariantCulture),
                     Estoque = Convert.ToInt32(linha.Split(";")[(int)Header.Estoque]),
                     QtdVendida = Convert.ToInt32(linha.Split(";")[(int)Header.QtdVendida])
                 };
