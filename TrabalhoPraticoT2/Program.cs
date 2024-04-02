@@ -2,6 +2,8 @@
 using System.IO;
 using System.Linq;
 using TrabalhoPraticoT2.Classes;
+//using System.Data.Linq.Mapping;
+
 
 static void exibirMenu()
 {
@@ -53,49 +55,44 @@ while (opcaoInt != 0)
             case 1:
                 Console.WriteLine("Opção 1 selecionada: TOP 5 produtos mais vendidos");
                 var produtosOrdenadosQtd = listaProdutos.OrderBy(p => p.QtdVendida);
-
                 var top5Qtd = produtosOrdenadosQtd.Take(5);
-
                 Console.WriteLine("TOP 5 produtos mais vendidos: \n");
                 foreach (var produto in top5Qtd)
                 {
                     Console.WriteLine("Código: " + produto.Codigo + " - " + "Descrição: " + produto.Descricao + "\n");
                 }
-
                 break;
             case 2:
                 Console.WriteLine("Opção 2 selecionada: TOP 3 produtos com mais estoque");
-
                 var produtosOrdenadosEstoque = listaProdutos.OrderBy(p => p.Estoque);
-
                 var top3Estoque = produtosOrdenadosEstoque.Take(3);
-
                 Console.WriteLine("TOP 3 produtos com mais estoque: \n");
                 foreach (var produto in top3Estoque)
                 {
                     Console.WriteLine("Código: " + produto.Codigo + " - " + "Descrição: "
                         + produto.Descricao + " - " + "Qtd: " + produto.QtdVendida + "\n");
                 }
-
                 break;
             case 3:
                 Console.WriteLine("Opção 3 selecionada: TOP 1 categoria mais vendida");
-                // Implemente o código para a opção 3 aqui
+                var vendasAgrupadas = listaProdutos.GroupBy(p => p.Categoria).Select(g => new
+                {
+                    Categoria = g.Key,
+                    QuantidadeVendida = g.Sum(p => p.QtdVendida)
+                }); ;
+                var catMaisVendida = vendasAgrupadas.OrderBy(c => c.QuantidadeVendida).First();
+                Console.WriteLine("Categoria mais vendida: " + catMaisVendida.ToString());
                 break;
             case 4:
                 Console.WriteLine("Opção 4 selecionada: TOP 5 produtos menos vendidos");
-
                 var produtosOrdenadosMenorQtd = listaProdutos.OrderByDescending(p => p.QtdVendida);
-
                 var top5MenosQtd = produtosOrdenadosMenorQtd.Take(5);
-
                 Console.WriteLine("TOP 5 produtos mais vendidos: \n");
                 foreach (var produto in top5MenosQtd)
                 {
                     Console.WriteLine("Código: " + produto.Codigo + " - " + "Descrição: "
                         + produto.Descricao + " - " + "Qtd: " + produto.QtdVendida + "\n");
                 }
-
                 break;
             case 5:
                 Console.WriteLine("Opção 5 selecionada: Estoque de segurança");
@@ -103,16 +100,30 @@ while (opcaoInt != 0)
                 break;
             case 6:
                 Console.WriteLine("Opção 6 selecionada: Excesso de estoque");
-                // Implemente o código para a opção 6 aqui
+                var excessoEstoque = listaProdutos.Where(p => p.Estoque >= (p.QtdVendida * 3));
+                Console.WriteLine("Produtos em excesso no estoque:");
+                foreach (var produto in excessoEstoque)                {
+                    Console.WriteLine("Código: " + produto.Codigo + " - " + "Descrição: "
+                         + produto.Descricao + " - " + "Estoque: " + produto.Estoque + "\n");
+                }
                 break;
             case 7:
                 Console.WriteLine("Opção 7 selecionada: Média de preço por categoria");
-                // Implemente o código para a opção 7 aqui
+                var Media = listaProdutos.GroupBy(p => p.Categoria).Select(g => new
+                {
+                    Categoria = g.Key,
+                    PrecoMedio = g.Average(produtos => produtos.Preco)
+                });
+                foreach (var item in Media)
+                {
+                    Console.WriteLine("Categoria: " + item.Categoria + " - " + "Preço medio: " + item.PrecoMedio);
+                }
+
                 break;
             case 8:
                 Console.Clear();
                 break;
-        } 
+        }
 
     }
     exibirMenu();
