@@ -6,7 +6,7 @@ namespace APIRelatorios.Services
     {
 
 
-        public Produto GetProduto(int id);
+     //   public Produto GetProduto(int id);
 
     }
 }
