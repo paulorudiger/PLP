@@ -15,7 +15,7 @@ namespace APIRelatorios.Database
 
         public ContextDB()
         {
-            _dataset = File.ReadAllText("..\\..\\..\\Dataset.csv");
+            _dataset = File.ReadAllText("Dataset.csv");
             _produtos = ProdutoParser.ConverterLista(_dataset);
         }
 

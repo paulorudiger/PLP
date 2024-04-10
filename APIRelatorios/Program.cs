@@ -1,4 +1,5 @@
 using APIRelatorios.Database;
+using APIRelatorios.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,6 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ContextDB>();
+builder.Services.AddTransient<ProdutoService>();
 
 var app = builder.Build();
 
