@@ -16,7 +16,7 @@ public partial class TbCliente
     public string Documento { get; set; }
 
     /// <summary>
-    /// 0 - CPF\n1 - CNPJ\n2 - Passaporte\n3 - CNH\n99 - Outros
+    /// 0 - CPF, 1 - CNPJ, 2 - Passaporte 3 - CNH, 99 - Outros
     /// </summary>
     public int Tipodoc { get; set; }
 
