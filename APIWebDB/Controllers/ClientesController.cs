@@ -22,7 +22,7 @@ namespace APIWebDB.Controllers
         {
             try
             {
-                var entity = _service.Insert(ClienteParser.ToEntity(cliente));
+                var entity = _service.Insert(cliente);
                 return Ok(entity);
             }
             catch (System.Exception E)

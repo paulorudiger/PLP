@@ -1,4 +1,6 @@
 ﻿using APIWebDB.BaseDados.Models;
+using APIWebDB.Services.DTOs;
+using APIWebDB.Services.Parser;
 
 namespace APIWebDB.Services
 {
@@ -12,8 +14,10 @@ namespace APIWebDB.Services
             _dbcontext = dbcontext;
         }
 
-        public TbCliente Insert(TbCliente entity) {
-       
+        public TbCliente Insert(ClienteDTO dto) {
+
+            var entity = ClienteParser.ToEntity(dto);
+
             _dbcontext.Add(entity);
             _dbcontext.SaveChanges();
 
