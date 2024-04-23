@@ -1,6 +1,7 @@
 ﻿using APIWebDB.BaseDados.Models;
 using APIWebDB.Services.DTOs;
 using APIWebDB.Services.Parser;
+using APIWebDB.Services.Validate;
 using System.Linq;
 
 namespace APIWebDB.Services
@@ -16,6 +17,11 @@ namespace APIWebDB.Services
         }
 
         public TbCliente Insert(ClienteDTO dto) {
+
+            if(!ClienteValidate.Execute(dto))
+            {
+                return null;
+            }
 
             var entity = ClienteParser.ToEntity(dto);
 

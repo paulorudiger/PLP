@@ -7,7 +7,7 @@ namespace APIWebDB.Services.Validate
     public class ClienteValidate
     {
 
-        private static void ValidateDocument(TipoDocumento tipo, string documento)
+        private static bool ValidateDocument(TipoDocumento tipo, string documento)
         {
 
             switch (tipo)
@@ -18,7 +18,7 @@ namespace APIWebDB.Services.Validate
                         {
                             throw new BadRequestException("O CPF precisa ter 11 digitos");
                         }
-                        break;
+                        return true;
                     }
                 case TipoDocumento.CNPJ:
                     {
@@ -26,7 +26,7 @@ namespace APIWebDB.Services.Validate
                         {
                             throw new BadRequestException("O CNPJ precisa ter 14 digitos");
                         }
-                        break;
+                        return true;
                     }
                 case TipoDocumento.Passaporte:
                     {
@@ -34,7 +34,7 @@ namespace APIWebDB.Services.Validate
                         {
                             throw new BadRequestException("O CPF precisa ter 8 digitos");
                         }
-                        break;
+                        return true;
                     }
                 case TipoDocumento.CNH:
                     {
@@ -42,14 +42,16 @@ namespace APIWebDB.Services.Validate
                         {
                             throw new BadRequestException("A CNH precisa ter 11 digitos");
                         }
-                        break;
+                        return true;
                     }
                 case TipoDocumento.Outros:
-                    break;
+                    return true;
+                default: 
+                    return true;
             }
         }
 
-        public static void Execute(ClienteDTO dto)
+        public static bool Execute(ClienteDTO dto)
         {
 
             if (string.IsNullOrEmpty(dto.Nome))
@@ -74,7 +76,7 @@ namespace APIWebDB.Services.Validate
 
             }
 
-            ValidateDocument(tipo, dto.Documento);
+            return ValidateDocument(tipo, dto.Documento);
 
         }
 
