@@ -3,6 +3,15 @@ using System.Collections.Generic;
 
 namespace APIWebDB.BaseDados.Models;
 
+public enum TipoDocumento
+{
+    CPF = 0,
+    CNPJ = 1,
+    Passaporte = 2,
+    CNH = 3,
+    Outros = 99
+}
+
 public partial class TbCliente
 {
     public int Id { get; set; }

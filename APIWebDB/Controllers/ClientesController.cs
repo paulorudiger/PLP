@@ -31,5 +31,27 @@ namespace APIWebDB.Controllers
             }
 
         }
+
+        [HttpPatch("{id}")]
+        public ActionResult<TbCliente> Update(int id, ClienteDTO cliente)
+        {
+            try
+            {
+                var existingEntity = _service.GetById(id);
+                if (existingEntity == null)
+                {
+                    return NotFound();
+                }
+
+                ClienteParser.UpdateEntityFromDTO(cliente, existingEntity);
+
+                var updatedEntity = _service.Update(existingEntity);
+                return Ok(updatedEntity);
+            }
+            catch (System.Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }
