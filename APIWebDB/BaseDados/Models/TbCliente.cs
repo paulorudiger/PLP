@@ -5,11 +5,12 @@ namespace APIWebDB.BaseDados.Models;
 
 public enum TipoDocumento
 {
-    CPF = 0,
-    CNPJ = 1,
-    Passaporte = 2,
-    CNH = 3,
-    Outros = 99
+    Outros = 99,
+    CPF = 1,
+    CNPJ = 2,
+    Passaporte = 3,
+    CNH = 4
+   
 }
 
 public partial class TbCliente

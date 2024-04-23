@@ -1,8 +1,10 @@
 ﻿using APIWebDB.BaseDados.Models;
 using APIWebDB.Services;
 using APIWebDB.Services.DTOs;
+using APIWebDB.Services.Exceptions;
 using APIWebDB.Services.Parser;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace APIWebDB.Controllers
 {
@@ -25,7 +27,15 @@ namespace APIWebDB.Controllers
                 var entity = _service.Insert(cliente);
                 return Ok(entity);
             }
-            catch (System.Exception E)
+            catch (InvalidEntityException E)
+            {
+                return new ObjectResult(new { error = E.Message })
+                {
+                    StatusCode = 422
+                };
+
+            }
+            catch (Exception E)
             {
                 return BadRequest(E.Message);
             }
