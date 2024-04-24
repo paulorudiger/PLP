@@ -42,6 +42,29 @@ namespace APIWebDB.Controllers
 
         }
 
+        [HttpPut("{id}")]
+        public ActionResult<TbCliente> Put(int id, ClienteDTO cliente)
+        {
+            try
+            {
+               var entity = _service.Put(cliente, id);
+                return Ok(entity);
+            }
+            catch (InvalidEntityException E)
+            {
+                return new ObjectResult(new { error = E.Message })
+                {
+                    StatusCode = 422
+                };
+
+            }
+            catch (Exception E)
+            {
+                return BadRequest(E.Message);
+            }
+
+        }
+
         [HttpPatch("{id}")]
         public ActionResult<TbCliente> Update(int id, ClienteDTO cliente)
         {

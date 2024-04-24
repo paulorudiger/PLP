@@ -64,7 +64,7 @@ namespace APIWebDB.Services.Validate
                 throw new InvalidEntityException("Campo Documento é obrigatório");
             }
 
-            if (dto.Tipodoc >= 0)
+            if (dto.Tipodoc <= 0)
             {
                 throw new InvalidEntityException("Campo TipoDoc é obrigatório");
             }

@@ -2,6 +2,8 @@
 using APIWebDB.Services.DTOs;
 using APIWebDB.Services.Parser;
 using APIWebDB.Services.Validate;
+using System;
+using System.Data.Common;
 using System.Linq;
 
 namespace APIWebDB.Services
@@ -30,6 +32,29 @@ namespace APIWebDB.Services
 
             return entity;
         
+        }
+
+        public TbCliente Put(ClienteDTO dto, int id) {
+            if (!ClienteValidate.Execute(dto))
+            {
+                return null;
+            }
+
+            var entity = ClienteParser.ToEntity(dto);
+
+            var ClienteById = GetById(id);
+            ClienteById.Nome = entity.Nome;
+            ClienteById.Nascimento = entity.Nascimento;
+            ClienteById.Telefone = entity.Telefone;
+            ClienteById.Documento = entity.Documento;   
+            ClienteById.Tipodoc = entity.Tipodoc;
+            ClienteById.Alteradoem = DateTime.Now;
+                
+            _dbcontext.Update(ClienteById);
+            _dbcontext.SaveChanges();
+
+            return ClienteById;
+            
         }
 
         public TbCliente Update(TbCliente entity)
