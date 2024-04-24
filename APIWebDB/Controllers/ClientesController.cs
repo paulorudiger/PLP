@@ -47,7 +47,7 @@ namespace APIWebDB.Controllers
         {
             try
             {
-               var entity = _service.Put(cliente, id);
+                var entity = _service.Put(cliente, id);
                 return Ok(entity);
             }
             catch (InvalidEntityException E)
@@ -84,6 +84,28 @@ namespace APIWebDB.Controllers
             catch (System.Exception e)
             {
                 return BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<TbCliente> Delete(int id)
+        {
+            try
+            {
+                _service.Delete(id);
+                return NoContent();
+            }
+            catch (NotFoundException E)
+            {
+                return NotFound(E.Message);
+            }
+            catch (Exception E)
+            {
+                return new ObjectResult(new { error = E.Message })
+                {
+                    StatusCode = 500
+                };
+
             }
         }
     }

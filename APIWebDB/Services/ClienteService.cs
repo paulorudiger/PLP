@@ -1,5 +1,6 @@
 ﻿using APIWebDB.BaseDados.Models;
 using APIWebDB.Services.DTOs;
+using APIWebDB.Services.Exceptions;
 using APIWebDB.Services.Parser;
 using APIWebDB.Services.Validate;
 using System;
@@ -55,6 +56,18 @@ namespace APIWebDB.Services
 
             return ClienteById;
             
+        }
+
+        public void Delete(int id) {
+            var Cliente = GetById(id);
+
+            if (Cliente == null )
+            {
+                throw new NotFoundException($"Entidade não encontrada com o id: {id}");
+            }
+            _dbcontext.Remove(Cliente);
+            _dbcontext.SaveChanges();
+
         }
 
         public TbCliente Update(TbCliente entity)
