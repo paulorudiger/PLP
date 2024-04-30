@@ -3,7 +3,9 @@ using APIWebDB.Services.DTOs;
 using APIWebDB.Services.Exceptions;
 using APIWebDB.Services.Parser;
 using APIWebDB.Services.Validate;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 
@@ -57,7 +59,7 @@ namespace APIWebDB.Services
             return ClienteById;
             
         }
-
+        
         public void Delete(int id) {
             var Cliente = GetById(id);
 
@@ -81,6 +83,16 @@ namespace APIWebDB.Services
         public TbCliente GetById(int id)
         {
             return _dbcontext.TbClientes.FirstOrDefault(c => c.Id == id);
+        }
+
+        public IEnumerable<TbCliente> GetAll()
+        {
+            var existingEntity = _dbcontext.TbClientes.ToList();
+            if (existingEntity == null || existingEntity.Count == 0)
+            {
+                throw new NotFoundException("Nenhum registro encontrado");
+            }
+            return existingEntity;
         }
 
     }

@@ -108,5 +108,48 @@ namespace APIWebDB.Controllers
 
             }
         }
-    }
+
+        [HttpGet("{id}")]
+        public ActionResult<TbCliente> GetById(int id)
+        {
+            try
+            {
+                var entity = _service.GetById(id);
+                return Ok(entity);
+            }
+            catch (NotFoundException E)
+            {
+                return NotFound(E.Message);
+            }
+            catch (System.Exception e)
+            {
+                return new ObjectResult(new { error = e.Message })
+                {
+                    StatusCode = 500
+                };
+            }
+        }
+        [HttpGet()]
+        public ActionResult<TbCliente> GetAll()
+        {
+            try
+            {
+                var entity = _service.GetAll();
+                return Ok(entity);
+            }
+            catch (NotFoundException E)
+            {
+                return NotFound(E.Message);
+            }
+            catch (System.Exception e)
+            {
+                return new ObjectResult(new { error = e.Message })
+                {
+                    StatusCode = 500
+                };
+            }
+        }
+    
+
+}
 }
