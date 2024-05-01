@@ -1,34 +1,33 @@
-﻿using APIWebDB.BaseDados.Models;
+﻿using ApiWebDB.Services.Parser;
+using APIWebDB.BaseDados.Models;
 using APIWebDB.Services;
 using APIWebDB.Services.DTOs;
 using APIWebDB.Services.Exceptions;
-using APIWebDB.Services.Parser;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.ComponentModel;
 
 namespace APIWebDB.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientesController : ControllerBase
+    public class EnderecoController : ControllerBase
     {
-        private readonly ClienteService _service;
+        private readonly EnderecoService _service;
         private readonly ILogger _logger;
 
-        public ClientesController(ClienteService service, ILogger<ClientesController> logger)
+        public EnderecoController(EnderecoService service, ILogger<EnderecoController> logger)
         {
             _service = service;
             _logger = logger;
         }
 
         [HttpPost()]
-        public ActionResult<TbCliente> Insert(ClienteDTO cliente)
+        public ActionResult<TbEndereco> Insert(EnderecoDTO endereco)
         {
             try
             {
-                var entity = _service.Insert(cliente);
+                var entity = _service.Insert(endereco);
                 return Ok(entity);
             }
             catch (InvalidEntityException E)
@@ -48,11 +47,11 @@ namespace APIWebDB.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<TbCliente> Put(int id, ClienteDTO cliente)
+        public ActionResult<TbEndereco> Put(int id, EnderecoDTO endereco)
         {
             try
             {
-                var entity = _service.Put(cliente, id);
+                var entity = _service.Put(endereco, id);
                 return Ok(entity);
             }
             catch (InvalidEntityException E)
@@ -71,7 +70,7 @@ namespace APIWebDB.Controllers
         }
 
         [HttpPatch("{id}")]
-        public ActionResult<TbCliente> Update(int id, ClienteDTO cliente)
+        public ActionResult<TbEndereco> Update(int id, EnderecoDTO endereco)
         {
             try
             {
@@ -81,7 +80,7 @@ namespace APIWebDB.Controllers
                     return NotFound();
                 }
 
-                ClienteParser.UpdateEntityFromDTO(cliente, existingEntity);
+                EnderecoParser.UpdateEntityFromDTO(endereco, existingEntity);
 
                 var updatedEntity = _service.Update(existingEntity);
                 return Ok(updatedEntity);
@@ -93,7 +92,7 @@ namespace APIWebDB.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<TbCliente> Delete(int id)
+        public ActionResult<TbEndereco> Delete(int id)
         {
             try
             {
@@ -115,7 +114,7 @@ namespace APIWebDB.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<TbCliente> GetById(int id)
+        public ActionResult<TbEndereco> GetById(int id)
         {
             try
             {
@@ -135,7 +134,7 @@ namespace APIWebDB.Controllers
             }
         }
         [HttpGet()]
-        public ActionResult<TbCliente> GetAll()
+        public ActionResult<TbEndereco> GetAll()
         {
             try
             {
@@ -154,7 +153,8 @@ namespace APIWebDB.Controllers
                 };
             }
         }
-    
 
-}
+
+
+    }
 }

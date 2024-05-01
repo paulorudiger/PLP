@@ -24,7 +24,7 @@ public partial class TbEndereco
     public int Clienteid { get; set; }
 
     /// <summary>
-    /// 0 - inativo\n1 - ativo
+    /// 0 - inativo\n 1 - ativo
     /// </summary>
     public int Status { get; set; }
 
