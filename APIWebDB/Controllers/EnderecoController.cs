@@ -1,5 +1,4 @@
-﻿using ApiWebDB.Services.Parser;
-using APIWebDB.BaseDados.Models;
+﻿using APIWebDB.BaseDados.Models;
 using APIWebDB.Services;
 using APIWebDB.Services.DTOs;
 using APIWebDB.Services.Exceptions;
@@ -23,11 +22,11 @@ namespace APIWebDB.Controllers
         }
 
         [HttpPost()]
-        public ActionResult<TbEndereco> Insert(EnderecoDTO endereco)
+        public ActionResult<TbEndereco> Insert(EnderecoDTO enderecoDTO)
         {
             try
             {
-                var entity = _service.Insert(endereco);
+                var entity = _service.Insert(enderecoDTO);
                 return Ok(entity);
             }
             catch (InvalidEntityException E)
@@ -47,11 +46,11 @@ namespace APIWebDB.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<TbEndereco> Put(int id, EnderecoDTO endereco)
+        public ActionResult<TbEndereco> Put(int id, EnderecoDTO enderecoDTO)
         {
             try
             {
-                var entity = _service.Put(endereco, id);
+                var entity = _service.Put(enderecoDTO, id);
                 return Ok(entity);
             }
             catch (InvalidEntityException E)
@@ -70,19 +69,11 @@ namespace APIWebDB.Controllers
         }
 
         [HttpPatch("{id}")]
-        public ActionResult<TbEndereco> Update(int id, EnderecoDTO endereco)
+        public ActionResult<TbEndereco> Update(int id, EnderecoDTO enderecoDTO)
         {
             try
             {
-                var existingEntity = _service.GetById(id);
-                if (existingEntity == null)
-                {
-                    return NotFound();
-                }
-
-                EnderecoParser.UpdateEntityFromDTO(endereco, existingEntity);
-
-                var updatedEntity = _service.Update(existingEntity);
+                var updatedEntity = _service.Update(id, enderecoDTO);
                 return Ok(updatedEntity);
             }
             catch (System.Exception e)
@@ -113,7 +104,7 @@ namespace APIWebDB.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("/getById/{id}")]
         public ActionResult<TbEndereco> GetById(int id)
         {
             try
@@ -133,12 +124,12 @@ namespace APIWebDB.Controllers
                 };
             }
         }
-        [HttpGet()]
-        public ActionResult<TbEndereco> GetAll()
+        [HttpGet("/getAll/{id}")]
+        public ActionResult<TbEndereco> GetAll(int id)
         {
             try
             {
-                var entity = _service.GetAll();
+                var entity = _service.GetAll(id);
                 return Ok(entity);
             }
             catch (NotFoundException E)

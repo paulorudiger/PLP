@@ -1,7 +1,7 @@
 ﻿using ApiWebDB.Services.Parser;
 using APIWebDB.BaseDados.Models;
 using APIWebDB.Services.DTOs;
-using APIWebDB.Services.Parser;
+using APIWebDB.Services.Exceptions;
 using APIWebDB.Services.Validate;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,30 +21,26 @@ namespace APIWebDB.Services
         public TbEndereco Insert(EnderecoDTO dto)
         {
 
-                if (!EnderecoValidate.Execute(dto))
-                {
-                    return null;
-                }
-
-            
-
+            if (!EnderecoValidate.Execute(dto))
+            {
+                return null;
+            }
 
             var entity = EnderecoParser.ToEntity(dto);
 
-                _dbcontext.Add(entity);
-                _dbcontext.SaveChanges();
+            _dbcontext.Add(entity);
+            _dbcontext.SaveChanges();
 
-                return entity;
-           
+            return entity;
         }
 
         public TbEndereco Put(EnderecoDTO dto, int id)
         {
-         if (!EnderecoValidate.Execute(dto))
+            if (!EnderecoValidate.Execute(dto))
             {
                 return null;
             }
-        
+
 
             var entity = EnderecoParser.ToEntity(dto);
 
@@ -70,22 +66,38 @@ namespace APIWebDB.Services
         {
             var Endereco = GetById(id);
 
-            /* <summary> asdasd
-             * if (Endereco == null)
-              {
-                  throw new NotFoundException($"Entidade não encontrada com o id: {id}");
-              }*/
+            if (Endereco == null)
+            {
+                throw new NotFoundException($"Entidade não encontrada com o id: {id}");
+            }
             _dbcontext.Remove(Endereco);
             _dbcontext.SaveChanges();
 
         }
 
-        public TbEndereco Update(TbEndereco entity)
+        public TbEndereco Update(int id, EnderecoDTO dto)
         {
-            _dbcontext.Update(entity);
+            var existingEntity = GetById(id);
+            if (existingEntity == null)
+            {
+               throw new NotFoundException($"Endereco com o id {id} não foi encontrado");
+            }
+
+           var endereco = EnderecoParser.ToEntity(dto);
+
+            existingEntity.Cep = endereco.Cep;
+            existingEntity.Logradouro = endereco.Logradouro;
+            existingEntity.Numero = endereco.Numero;
+            existingEntity.Complemento = endereco.Complemento;
+            existingEntity.Bairro = endereco.Bairro;
+            existingEntity.Cidade = endereco.Cidade;
+            existingEntity.Uf = endereco.Uf;
+            existingEntity.Status = endereco.Status;
+
+            _dbcontext.Update(existingEntity);
             _dbcontext.SaveChanges();
 
-            return entity;
+            return existingEntity;
         }
 
         public TbEndereco GetById(int id)
@@ -93,19 +105,14 @@ namespace APIWebDB.Services
             return _dbcontext.TbEnderecos.FirstOrDefault(c => c.Id == id);
         }
 
-        public IEnumerable<TbEndereco> GetAll()
+        public IEnumerable<TbEndereco> GetAll(int idCliente)
         {
-            /*    var existingEntity = _dbcontext.TbEndereco.ToList();
-                if (existingEntity == null || existingEntity.Count == 0)
-                {
-                    throw new NotFoundException("Nenhum registro encontrado");
-                } 
-                return existingEntity;*/
-            return null;
+            var existingEntities = _dbcontext.TbEnderecos.Where(e => e.Clienteid == idCliente).ToList();
+            if (existingEntities == null || existingEntities.Count == 0)
+            {
+                throw new NotFoundException("Nenhum endereço encontrado para o cliente especificado");
+            }
+            return existingEntities;
         }
-
-
-
-
     }
 }

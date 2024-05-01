@@ -22,20 +22,5 @@ namespace ApiWebDB.Services.Parser
             };
         }
 
-        internal static void UpdateEntityFromDTO(EnderecoDTO endereco, TbEndereco existingEntity)
-        {
-
-            existingEntity.Cep = endereco.Cep;
-            existingEntity.Logradouro = endereco.Logradouro;
-            existingEntity.Numero = endereco.Numero;
-            existingEntity.Complemento = endereco.Complemento;
-            existingEntity.Bairro = endereco.Bairro;
-            existingEntity.Cidade = endereco.Cidade;
-            existingEntity.Uf = endereco.Uf;
-            existingEntity.Clienteid = endereco.Clienteid;
-            existingEntity.Status = endereco.Status;
-
-
-        }
     }
 }
