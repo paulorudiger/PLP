@@ -80,7 +80,7 @@ namespace APIWebDB.Controllers
                 {
                     return NotFound();
                 }
-
+                 // todo: tirar regra do controller
                 ClienteParser.UpdateEntityFromDTO(cliente, existingEntity);
 
                 var updatedEntity = _service.Update(existingEntity);

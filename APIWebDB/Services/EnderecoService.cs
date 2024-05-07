@@ -36,30 +36,33 @@ namespace APIWebDB.Services
 
         public TbEndereco Put(EnderecoDTO dto, int id)
         {
+            var EnderecoById = GetById(id);
+            if (EnderecoById == null)
+            {
+                throw new NotFoundException($"O endereço com o id {id} não foi encontrado.");
+            }
+
             if (!EnderecoValidate.Execute(dto))
             {
                 return null;
             }
 
-
-            var entity = EnderecoParser.ToEntity(dto);
-
-            var EnderecoById = GetById(id);
-            EnderecoById.Cep = entity.Cep;
-            EnderecoById.Logradouro = entity.Logradouro;
-            EnderecoById.Numero = entity.Numero;
-            EnderecoById.Complemento = entity.Complemento;
-            EnderecoById.Bairro = entity.Bairro;
-            EnderecoById.Cidade = entity.Cidade;
-            EnderecoById.Uf = entity.Uf;
-            EnderecoById.Clienteid = entity.Clienteid;
-            EnderecoById.Status = entity.Status;
+            var enderecoDTO = EnderecoParser.ToEntity(dto);
+            
+            EnderecoById.Cep = enderecoDTO.Cep;
+            EnderecoById.Logradouro = enderecoDTO.Logradouro;
+            EnderecoById.Numero = enderecoDTO.Numero;
+            EnderecoById.Complemento = enderecoDTO.Complemento;
+            EnderecoById.Bairro = enderecoDTO.Bairro;
+            EnderecoById.Cidade = enderecoDTO.Cidade;
+            EnderecoById.Uf = enderecoDTO.Uf;
+            EnderecoById.Clienteid = enderecoDTO.Clienteid;
+            EnderecoById.Status = enderecoDTO.Status;
 
             _dbcontext.Update(EnderecoById);
             _dbcontext.SaveChanges();
 
             return EnderecoById;
-
         }
 
         public void Delete(int id)
@@ -75,31 +78,6 @@ namespace APIWebDB.Services
 
         }
 
-        public TbEndereco Update(int id, EnderecoDTO dto)
-        {
-            var existingEntity = GetById(id);
-            if (existingEntity == null)
-            {
-               throw new NotFoundException($"Endereco com o id {id} não foi encontrado");
-            }
-
-           var endereco = EnderecoParser.ToEntity(dto);
-
-            existingEntity.Cep = endereco.Cep;
-            existingEntity.Logradouro = endereco.Logradouro;
-            existingEntity.Numero = endereco.Numero;
-            existingEntity.Complemento = endereco.Complemento;
-            existingEntity.Bairro = endereco.Bairro;
-            existingEntity.Cidade = endereco.Cidade;
-            existingEntity.Uf = endereco.Uf;
-            existingEntity.Status = endereco.Status;
-
-            _dbcontext.Update(existingEntity);
-            _dbcontext.SaveChanges();
-
-            return existingEntity;
-        }
-
         public TbEndereco GetById(int id)
         {
             return _dbcontext.TbEnderecos.FirstOrDefault(c => c.Id == id);
@@ -107,12 +85,12 @@ namespace APIWebDB.Services
 
         public IEnumerable<TbEndereco> GetAll(int idCliente)
         {
-            var existingEntities = _dbcontext.TbEnderecos.Where(e => e.Clienteid == idCliente).ToList();
-            if (existingEntities == null || existingEntities.Count == 0)
+            var listEnderecos = _dbcontext.TbEnderecos.Where(e => e.Clienteid == idCliente).ToList();
+            if (listEnderecos == null || listEnderecos.Count == 0)
             {
                 throw new NotFoundException("Nenhum endereço encontrado para o cliente especificado");
             }
-            return existingEntities;
+            return listEnderecos;
         }
     }
 }
