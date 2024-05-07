@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrabalhoPraticoT2", "..\Tra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIRelatorios", "..\APIRelatorios\APIRelatorios.csproj", "{546F8729-EA79-4F9E-949F-6485459511F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIWebDB", "..\APIWebDB\APIWebDB.csproj", "{FA585C15-0FE9-40AF-BCEC-341BF60C458F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIWebDB", "..\APIWebDB\APIWebDB.csproj", "{FA585C15-0FE9-40AF-BCEC-341BF60C458F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrabalhoFinalRESTFull", "..\TrabalhoFinalRESTFull\TrabalhoFinalRESTFull.csproj", "{F45222B8-DBC6-418A-9A49-5F5B29E8447E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{FA585C15-0FE9-40AF-BCEC-341BF60C458F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA585C15-0FE9-40AF-BCEC-341BF60C458F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA585C15-0FE9-40AF-BCEC-341BF60C458F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F45222B8-DBC6-418A-9A49-5F5B29E8447E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F45222B8-DBC6-418A-9A49-5F5B29E8447E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F45222B8-DBC6-418A-9A49-5F5B29E8447E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F45222B8-DBC6-418A-9A49-5F5B29E8447E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
