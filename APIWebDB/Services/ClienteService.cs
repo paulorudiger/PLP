@@ -38,14 +38,19 @@ namespace APIWebDB.Services
         }
 
         public TbCliente Put(ClienteDTO dto, int id) {
+            var ClienteById = GetById(id);
+            if (ClienteById == null)
+            {
+                throw new NotFoundException($"O cliente com o id {id} não foi encontrado.");
+            }
+
             if (!ClienteValidate.Execute(dto))
             {
                 return null;
             }
 
             var entity = ClienteParser.ToEntity(dto);
-
-            var ClienteById = GetById(id);
+           
             ClienteById.Nome = entity.Nome;
             ClienteById.Nascimento = entity.Nascimento;
             ClienteById.Telefone = entity.Telefone;
@@ -70,14 +75,6 @@ namespace APIWebDB.Services
             _dbcontext.Remove(Cliente);
             _dbcontext.SaveChanges();
 
-        }
-
-        public TbCliente Update(TbCliente entity)
-        {
-            _dbcontext.Update(entity);
-            _dbcontext.SaveChanges();
-
-            return entity;
         }
 
         public TbCliente GetById(int id)

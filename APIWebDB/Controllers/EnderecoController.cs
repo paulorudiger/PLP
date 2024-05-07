@@ -64,7 +64,7 @@ namespace APIWebDB.Controllers
         ///  <param name="enderecoDTO">json dos dados que serão atualizados.  
         ///     Obrigatorios: CEP, Logradouro, Numero, Bairro, Cidade, Clienteid, Status (0 - inativo1 - ativo)
         /// </param>
-        /// <returns>Retorna o endereco inserido</returns>
+        /// <returns>Retorna o endereco atualziado</returns>
         /// <response code="200">Retorna o Json com o endereco atualizado</response>
         /// <response code="400">Os dados enviados não são válidos</response>
         /// <response code="422">Campos obrigatórios não enviados para a atualizacão</response>
@@ -93,8 +93,6 @@ namespace APIWebDB.Controllers
             }
 
         }
-
-
 
         /// <summary>
         /// Rota para delecao de enderecos. 
@@ -157,7 +155,6 @@ namespace APIWebDB.Controllers
                 };
             }
         }
-
 
         /// <summary>
         /// Rota para consulta de enderecos de um cliente. 
