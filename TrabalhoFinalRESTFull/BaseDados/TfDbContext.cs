@@ -24,7 +24,7 @@ public partial class TfDbContext : DbContext
     public virtual DbSet<TbStockLog> TbStockLogs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseNpgsql("Host=localhost;Database=TF_DB;Username=postgres;Password=minhasenha");
+        => optionsBuilder.UseNpgsql("Host=localhost;Database=postgres;Username=postgres;Password=admin");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
