@@ -1,0 +1,82 @@
+Trabalho final
+
+Faça uma API RESTFull
+
+Use o script disponivel nos materiais de apoio (TrabalhoFinalScript.sql) para criar a base de dados (TF_DB)
+
+Serão 4 tabelas tb_products (Produtos), tb_promotions (Promoções), tb_sales (Vendas), tb_stock_logs (Tabela de logs de alteração de estoque).
+
+* Produtos (Deve ser possivel):
+   - Inserir, 
+   - Editar (O estoque não pode ser alterado por aqui), 
+   - Buscar um único produto (Por código de barras),
+   - Buscar vários produtos (Filtrando por descrição - SQL Like / Contendo),
+   - Ajustar estoque (Deve haver um metodo só para alterar o estoque de um determinado produto, 
+   passando a quantidade a incrementar ou decrementar). OBS: Esse método deve alterar somente um campo da tabela.
+   
+IMPORTANTE: Ao inserir um produto ou ajustar o estoque, é preciso inserir logs (tb_stock_logs).
+            Os códigos de barras devem ser validados conforme documentação da base de dados.
+   
+* Promoções (Deve ser possivel):
+   - Inserir,
+   - Editar,
+   - Buscar todas as promoções de um produto em um determinado periodo;
+   
+IMPORTANTE: Levar horario em consideração no periodo.   
+   
+* Vendas
+   - Inserir (Fazer uma venda);
+     -- Ao inserir uma nova venda, é preciso validar e atualizar o estoque,
+	 -- Ao inserir uma nova venda, é preciso calcular as promoções ativas dos produtos,
+	 -- O mesmo produto pode ter mais de uma promoção, caso tenha, deve calcular por ordem do tipo (Menor para o maior), 
+   - Buscar venda pelo codigo da venda	 
+   
+* Logs 
+   - Consultar logs por produto (No retorno, deve exibir, Data, Código de barras, Descrição, quantidade movimentada)   
+	 
+IMPORTANTE: o preço de venda do produto será sempre o do cadastro do produto, sendo que, a unica forma de modifica-lo é atravez das promoções.	 
+	 
+* Relatórios
+   - Relatorio de vendas por periodo (Deve listar todas as vendas, agrupado por codigo da venda), 
+   contendo descricao do produto, preço, quantidade, data da venda).   
+ 
+REQUISITOS TECNICOS:
+  * A API deve estar totalmente documentada;
+  * A entrada de dados (Request.body) será sempre JSON;
+  * A saída de dados deve ser JSON ou XML;
+  * Deve haver suportes a logs da API (No momento, em arquivo);
+   
+-----------------------------------------------------
+
+Pontos extras:
+  * Autenticação (Basic ou JWT);
+  * AutoMapper (Para parser entre classes);
+  * FluentValidation (Para validação de campos).
+
+-----------------------------------------------------
+
+A API deve ser publicada no Github.
+
+-----------------------------------------------------
+
+ARTIGO CIENTIFICO
+  Entregar trabalho escrito referente a API. O conteúdo deve seguir uma das linhas abaixo:
+  - Arquitetura e Design de APIs Eficientes
+  - Integração de Sistemas através de APIs
+  - Monitoramento e Gerenciamento de APIs
+  - APIs e Transformação Digital
+  - Segurança e Privacidade em APIs
+  - Padronização e Evolução das APIs
+  - APIs e Computação Sem Servidor (Serverless)
+  - Teste e Validação de APIs
+  - APIs e Inteligência Artificial (IA)
+  - Governança e Estratégia de APIs  
+  
+O artigo deve conter no minimo 12 páginas de referencial teórico;
+Deve seguir o modelo disponibilizado;
+
+--------------------------------------------------------
+
+O Trabalho final deve ser entregue em um email, contendo o artigo e o link do repositorio no Github.
+
+--------------------------------------------------------

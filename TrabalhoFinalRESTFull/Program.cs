@@ -7,6 +7,7 @@ using System.IO;
 using System.Reflection;
 using System;
 using TrabalhoFinalRESTFull.BaseDados.Models;
+using TrabalhoFinalRESTFull.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,11 +15,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<TfDbContext>();
+builder.Services.AddScoped<ProductService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Logging.AddFile("Logs/TrabalhoFinalRESTFull-{Date}.log");
 builder.Services.AddSwaggerGen();
-
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo

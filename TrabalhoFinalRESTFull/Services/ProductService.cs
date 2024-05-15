@@ -1,5 +1,9 @@
-﻿using TrabalhoFinalRESTFull.BaseDados.Models;
+﻿using FluentValidation;
+using System;
+using TrabalhoFinalRESTFull.BaseDados.Models;
 using TrabalhoFinalRESTFull.Services.DTOs;
+using TrabalhoFinalRESTFull.Services.Parser;
+using TrabalhoFinalRESTFull.Services.Validate;
 
 namespace TrabalhoFinalRESTFull.Services
 {
@@ -20,13 +24,19 @@ namespace TrabalhoFinalRESTFull.Services
                 return null;
             }*/
 
-          //  var entity = ClienteParser.ToEntity(dto);
+            var entity = ProductParser.ToEntity(dto);
 
-          //  _dbcontext.Add(entity);
+            Console.WriteLine(entity);
+
+            var validator = new ProductValidator();
+            validator.ValidateAndThrow(entity);
+
+
+
+            //  _dbcontext.Add(entity);
             _dbcontext.SaveChanges();
 
-            //   return entity;
-            return null;
+            return entity;
 
         }
 
