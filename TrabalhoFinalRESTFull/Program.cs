@@ -8,6 +8,8 @@ using System.Reflection;
 using System;
 using TrabalhoFinalRESTFull.BaseDados.Models;
 using TrabalhoFinalRESTFull.Services;
+using AutoMapper;
+using TrabalhoFinalRESTFull.MappingProfiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +21,10 @@ builder.Services.AddScoped<ProductService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Logging.AddFile("Logs/TrabalhoFinalRESTFull-{Date}.log");
-builder.Services.AddSwaggerGen();
+
+// Adicionando AutoMapper
+builder.Services.AddAutoMapper(typeof(MappingProfile)); // Registro do AutoMapper com o perfil criado
+
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
@@ -40,11 +45,9 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 
-    // using System.Reflection;
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
-
 
 var app = builder.Build();
 
