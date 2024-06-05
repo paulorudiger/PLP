@@ -12,6 +12,7 @@
             CreateMap<TbPromotion, PromotionDTO>();
             CreateMap<TbSale, SaleDTO>();
             CreateMap<TbStockLog, StockLogDTO>();
+
             // Adicione outros mapeamentos aqui
         }
     }

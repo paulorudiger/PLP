@@ -30,7 +30,7 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
-        Title = "ToDo API",
+        Title = "Trab Final RESTFull API",
         Description = "An ASP.NET Core Web API for managing ToDo items",
         TermsOfService = new Uri("https://example.com/terms"),
         Contact = new OpenApiContact
@@ -38,7 +38,7 @@ builder.Services.AddSwaggerGen(options =>
             Name = "Example Contact",
             Url = new Uri("https://example.com/contact")
         },
-        License = new OpenApiLicense
+        License = new OpenApiLicense    
         {
             Name = "Example License",
             Url = new Uri("https://example.com/license")
