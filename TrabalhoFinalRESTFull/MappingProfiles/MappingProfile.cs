@@ -8,12 +8,12 @@
     {
         public MappingProfile()
         {
-            CreateMap<TbProduct, ProductDTO>();
-            CreateMap<TbPromotion, PromotionDTO>();
-            CreateMap<TbSale, SaleDTO>();
-            CreateMap<TbStockLog, StockLogDTO>();
+            // ReverseMap() garante que a conversão será feita em ambos os sentidos
+            CreateMap<TbProduct, ProductDTO>().ReverseMap();
+            CreateMap<TbPromotion, PromotionDTO>().ReverseMap();
+            CreateMap<TbSale, SaleDTO>().ReverseMap();
+            CreateMap<TbStockLog, StockLogDTO>().ReverseMap();
 
-            // Adicione outros mapeamentos aqui
         }
     }
 

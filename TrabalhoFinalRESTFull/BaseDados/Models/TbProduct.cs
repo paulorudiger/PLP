@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace TrabalhoFinalRESTFull.BaseDados.Models;
 
@@ -24,7 +25,7 @@ public partial class TbProduct
     public string Barcode { get; set; }
 
     /// <summary>
-    /// Tipo de código de barras:\nEAN-13   Varejo - Número de 13 dígitos)\nDUN-14  Frete - Número de 14 dígitos) \nUPC - Varejo (América do Norte e Canadá) -​ Número de 12 dígitos\nCODE 11 - Telecomunicações - números de 0 a 9, – e *\nCODE 39 - Automotiva e Defesa - Letras (A a Z), numéros (0 a 9) e (-, ., $, /, +, %, e espaço). Um caractere adicional (denotado ‘*’) é usado para os delimitadores de início e parada.
+    /// Tipo de código de barras
     /// </summary>
     public string Barcodetype { get; set; }
 
@@ -43,9 +44,12 @@ public partial class TbProduct
     /// </summary>
     public decimal Costprice { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<TbPromotion> TbPromotions { get; set; } = new List<TbPromotion>();
 
+    [JsonIgnore]
     public virtual ICollection<TbSale> TbSales { get; set; } = new List<TbSale>();
 
+    [JsonIgnore]
     public virtual ICollection<TbStockLog> TbStockLogs { get; set; } = new List<TbStockLog>();
 }

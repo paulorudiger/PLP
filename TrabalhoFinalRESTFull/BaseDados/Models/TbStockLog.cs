@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace TrabalhoFinalRESTFull.BaseDados.Models;
 
@@ -28,5 +28,6 @@ public partial class TbStockLog
     /// </summary>
     public DateTime Createdat { get; set; }
 
+    [JsonIgnore]
     public virtual TbProduct Product { get; set; }
 }

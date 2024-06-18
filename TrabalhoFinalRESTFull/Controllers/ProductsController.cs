@@ -26,7 +26,7 @@ namespace TrabalhoFinalRESTFull.Controllers
         /// Rota para inserção de novos produtos
         /// </summary>
         /// <param name="productDTO">JSON dos dados que serão inseridos.  
-        ///     Obrigatórios: Nome, Documento, Tipodoc
+        ///     Obrigatórios: Description, Barcode, Barcodetype, Stock, Price, Costprice
         /// </param>
         /// <returns>Retorna o produto inserido</returns>
         /// <response code="200">Retorna o JSON com o produto cadastrado</response>
@@ -61,7 +61,7 @@ namespace TrabalhoFinalRESTFull.Controllers
         /// </summary>
         /// <param name="id">ID do produto que será atualizado</param>
         /// <param name="productDTO">JSON dos dados que serão atualizados.  
-        ///     Obrigatórios: Nome, Documento, Tipodoc
+        ///     Obrigatórios: Description, Barcode, Barcodetype, Stock, Price, Costprice
         /// </param>
         /// <returns>Retorna o produto atualizado</returns>
         /// <response code="200">Retorna o JSON com o produto atualizado</response>
@@ -153,5 +153,128 @@ namespace TrabalhoFinalRESTFull.Controllers
             }
         }
 
+        /// <summary>
+        /// Rota para buscar um produto pelo código de barras
+        /// </summary>
+        /// <param name="barcode">Código de barras do produto</param>
+        /// <returns>Retorna o produto solicitado</returns>
+        /// <response code="200">Retorna o JSON com os dados do produto</response>
+        /// <response code="404">Produto não encontrado</response>
+        /// <response code="500">Erro interno de servidor</response>
+        [HttpGet("barcode/{barcode}")]
+        public ActionResult<TbProduct> GetByBarcode(string barcode)
+        {
+            try
+            {
+                var entity = _service.GetByBarcode(barcode);
+                return Ok(entity);
+            }
+            catch (NotFoundException E)
+            {
+                _logger.LogError(E.Message);
+                return NotFound(E.Message);
+            }
+            catch (Exception E)
+            {
+                _logger.LogError(E.Message);
+                return new ObjectResult(new { error = E.Message })
+                {
+                    StatusCode = 500
+                };
+            }
+        }
+
+        /// <summary>
+        /// Rota para buscar produtos pela descrição
+        /// </summary>
+        /// <param name="description">Descrição do produto</param>
+        /// <returns>Retorna a lista de produtos</returns>
+        /// <response code="200">Retorna o JSON com os dados dos produtos</response>
+        /// <response code="404">Nenhum produto encontrado</response>
+        /// <response code="500">Erro interno de servidor</response>
+        [HttpGet("description/{description}")]
+        public ActionResult<IEnumerable<TbProduct>> GetByDescription(string description)
+        {
+            try
+            {
+                var entities = _service.GetByDescription(description);
+                return Ok(entities);
+            }
+            catch (NotFoundException E)
+            {
+                _logger.LogError(E.Message);
+                return NotFound(E.Message);
+            }
+            catch (Exception E)
+            {
+                _logger.LogError(E.Message);
+                return new ObjectResult(new { error = E.Message })
+                {
+                    StatusCode = 500
+                };
+            }
+        }
+
+        /// <summary>
+        /// Rota para ajustar o estoque de um produto
+        /// </summary>
+        /// <param name="id">ID do produto</param>
+        /// <param name="qty">Quantidade a ser ajustada (positiva ou negativa)</param>
+        /// <returns>Retorna o produto atualizado</returns>
+        /// <response code="200">Retorna o JSON com o produto atualizado</response>
+        /// <response code="404">Produto não encontrado</response>
+        /// <response code="500">Erro interno de servidor</response>
+        [HttpPatch("{id}/adjust-stock")]
+        public ActionResult<TbProduct> AdjustStock(int id, [FromBody] int qty)
+        {
+            try
+            {
+                var entity = _service.AdjustStock(id, qty);
+                return Ok(entity);
+            }
+            catch (NotFoundException E)
+            {
+                _logger.LogError(E.Message);
+                return NotFound(E.Message);
+            }
+            catch (Exception E)
+            {
+                _logger.LogError(E.Message);
+                return new ObjectResult(new { error = E.Message })
+                {
+                    StatusCode = 500
+                };
+            }
+        }
+
+        /// <summary>
+        /// Rota para listar todos os produtos
+        /// </summary>
+        /// <returns>Retorna a lista de produtos</returns>
+        /// <response code="200">Retorna o JSON com os dados dos produtos</response>
+        /// <response code="404">Nenhum produto encontrado</response>
+        /// <response code="500">Erro interno de servidor</response>
+        [HttpGet]
+        public ActionResult<IEnumerable<TbProduct>> GetAll()
+        {
+            try
+            {
+                var entities = _service.GetAll();
+                return Ok(entities);
+            }
+            catch (NotFoundException E)
+            {
+                _logger.LogError(E.Message);
+                return NotFound(E.Message);
+            }
+            catch (Exception E)
+            {
+                _logger.LogError(E.Message);
+                return new ObjectResult(new { error = E.Message })
+                {
+                    StatusCode = 500
+                };
+            }
+        }
     }
 }
